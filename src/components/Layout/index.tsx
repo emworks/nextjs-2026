@@ -1,11 +1,13 @@
 import { FC, PropsWithChildren } from "react";
 import MenuLink from "@/components/MenuLink";
 import styles from "./styles.module.css";
+import NextTopLoader from "nextjs-toploader";
 
 const Layout: FC<PropsWithChildren> = ({ children }) => {
     return (
         <html>
             <body>
+                <NextTopLoader />
                 <div className={styles.wrapper}>
                     <header className={styles.header}>
                         <nav>

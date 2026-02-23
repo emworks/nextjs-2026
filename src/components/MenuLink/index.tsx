@@ -12,7 +12,7 @@ const MenuLink: FC<PropsWithChildren<LinkProps>> = ({ href, children }) => {
     return href === pathname ? styles.active : "";
   }
 
-  return <Link className={getActiveClass()} href={href}>{children}</Link>
+  return <Link className={getActiveClass()} href={href} prefetch={false}>{children}</Link>
 }
 
 export default MenuLink;
