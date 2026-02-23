@@ -20,7 +20,9 @@ export async function getAll({ page = "1", limit = "5" }: Params): Promise<Racke
 }
 
 export async function getTop10(): Promise<Racket[]> {
-    const res = await fetch(`${BASE_API_URL}/top-10`);
+    const res = await fetch(`${BASE_API_URL}/top-10`, {
+        next: { tags: ["getTop10Rackets"] },
+    });
 
     if (!res.ok) throw new Error("Failed to fetch");
 
