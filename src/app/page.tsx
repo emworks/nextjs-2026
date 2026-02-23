@@ -1,13 +1,19 @@
-import { FC } from "react";
-import styles from "./page.module.css";
-import Link from "next/link";
-import { getTop10 } from "@/services/products";
+import { FC, Suspense } from "react";
 import Home from "@/components/Home";
+import RacketsHomeList from "@/components/Rackets/RacketsHomeList";
+import { getAll, getTop10 } from "@/services/products";
 
 const Page: FC<PageProps<"/">> = async () => {
-  const rackets = await getTop10();
-
-  return <Home rackets={rackets} />;
+  return (
+    <Home>
+      <Suspense fallback="loading all rackets...">
+        <RacketsHomeList getData={() => getAll({ limit: "10" })} />
+      </Suspense>
+      <Suspense fallback="loading top 10 rackets...">
+        <RacketsHomeList getData={() => getTop10()} />
+      </Suspense>
+    </Home>
+  );
 }
 
 export default Page;
