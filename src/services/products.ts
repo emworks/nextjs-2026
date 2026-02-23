@@ -31,10 +31,16 @@ export async function getTop10(): Promise<Racket[]> {
     return res.json();
 }
 
-export async function getById(id: string): Promise<RacketResponse> {
+export async function getById(id: string): Promise<Partial<RacketResponse>> {
     const res = await fetch(`${BASE_API_URL}/product/${id}`, {
         cache: "no-store",
     });
+
+    if (res.status === 404) {
+        return {
+            product: undefined
+        }
+    }
 
     if (!res.ok) throw new Error("Failed to fetch product");
 
