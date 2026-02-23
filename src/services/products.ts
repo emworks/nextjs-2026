@@ -32,7 +32,9 @@ export async function getTop10(): Promise<Racket[]> {
 }
 
 export async function getById(id: string): Promise<RacketResponse> {
-    const res = await fetch(`${BASE_API_URL}/product/${id}`);
+    const res = await fetch(`${BASE_API_URL}/product/${id}`, {
+        cache: "no-store",
+    });
 
     if (!res.ok) throw new Error("Failed to fetch product");
 
