@@ -11,6 +11,7 @@ const Layout: FC<PropsWithChildren> = ({ children }) => {
                         <nav>
                             <MenuLink href="/">Главная</MenuLink>
                             <MenuLink href="/rackets">Ракетки</MenuLink>
+                            <MenuLink href="/top10">Топ-10</MenuLink>
                         </nav>
                     </header>
 
