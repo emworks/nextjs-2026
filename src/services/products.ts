@@ -12,9 +12,7 @@ export async function getAll({ page = "1", limit = "5" }: Params): Promise<Racke
         limit,
     }).toString();
 
-    const res = await fetch(`${BASE_API_URL}/products?${queryParams}`, {
-        cache: "no-store",
-    });
+    const res = await fetch(`${BASE_API_URL}/products?${queryParams}`);
 
     if (!res.ok) throw new Error("Failed to fetch products");
 
@@ -23,7 +21,7 @@ export async function getAll({ page = "1", limit = "5" }: Params): Promise<Racke
 
 export async function getTop10(): Promise<Racket[]> {
     const res = await fetch(`${BASE_API_URL}/top-10`, {
-        cache: "no-store",
+        next: { tags: ["getTop10Rackets"] },
     });
 
     if (!res.ok) throw new Error("Failed to fetch");
@@ -32,9 +30,21 @@ export async function getTop10(): Promise<Racket[]> {
 }
 
 export async function getById(id: string): Promise<Partial<RacketResponse>> {
-    const res = await fetch(`${BASE_API_URL}/product/${id}`, {
-        cache: "no-store",
-    });
+    const res = await fetch(`${BASE_API_URL}/product/${id}`);
+
+    if (res.status === 404) {
+        return {
+            product: undefined
+        }
+    }
+
+    if (!res.ok) throw new Error("Failed to fetch product");
+
+    return res.json();
+}
+
+export async function getMetaById(id: string): Promise<Partial<RacketResponse>> {
+    const res = await fetch(`${BASE_API_URL}/meta/product/${id}`);
 
     if (res.status === 404) {
         return {
