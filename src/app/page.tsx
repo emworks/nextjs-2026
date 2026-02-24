@@ -1,36 +1,19 @@
-import { FC } from "react";
-import styles from "./page.module.css";
-import Link from "next/link";
-import { Racket } from "@/types/racket";
-
-async function getTop10(): Promise<Racket[]> {
-  const res = await fetch("http://localhost:4000/api/top-10", {
-    cache: "no-store",
-  });
-
-  if (!res.ok) throw new Error("Failed to fetch");
-
-  return res.json();
-}
+import { FC, Suspense } from "react";
+import Home from "@/components/Home";
+import RacketsHomeList from "@/components/Rackets/RacketsHomeList";
+import { getAll, getTop10 } from "@/services/products";
 
 const Page: FC<PageProps<"/">> = async () => {
-  const rackets = await getTop10();
-
-  return <div>
-    <div className={styles.grid}>
-      {rackets.slice(0, 3).map((racket) => (
-        <div key={racket.id} className={styles.card}>
-          <img src={racket.imageUrl} alt={racket.name} />
-          <h3>{racket.name}</h3>
-          <Link href={`/racket/${racket.id}`}>Подробнее</Link>
-        </div>
-      ))}
-    </div>
-
-    <div className={styles.allLink}>
-      <Link href="/rackets">Все ракетки →</Link>
-    </div>
-  </div>;
+  return (
+    <Home>
+      <Suspense fallback="loading all rackets...">
+        <RacketsHomeList getData={() => getAll({ limit: "10" })} />
+      </Suspense>
+      <Suspense fallback="loading top 10 rackets...">
+        <RacketsHomeList getData={() => getTop10()} />
+      </Suspense>
+    </Home>
+  );
 }
 
 export default Page;
