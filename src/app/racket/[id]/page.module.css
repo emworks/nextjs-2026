@@ -1,0 +1,23 @@
+.container {
+    display: flex;
+    gap: 40px;
+}
+
+.left {
+    width: 30%;
+}
+
+.center {
+    width: 40%;
+}
+
+.center img {
+    width: 100%;
+    object-fit: contain;
+}
+
+.right {
+    width: 20%;
+    font-size: 24px;
+    font-weight: bold;
+}
