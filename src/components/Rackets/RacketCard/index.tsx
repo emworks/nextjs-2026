@@ -14,6 +14,7 @@ const RacketCard: FC<Props> = ({ racket }) => {
       <h3>{racket.name}</h3>
       <p>${racket.price}</p>
       <Link href={`/racket/${racket.id}`}>Подробнее</Link>
+      {racket.userData?.toString()}
     </div>
   );
 };
