@@ -14,6 +14,6 @@ const Page: FC<PageProps<"/">> = async () => {
       </Suspense>
     </Home>
   );
-}
+};
 
 export default Page;

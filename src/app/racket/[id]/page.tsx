@@ -34,6 +34,6 @@ const Page: FC<PageProps<"/racket/[id]">> = async ({ params }) => {
   }
 
   return <RacketDetails racket={product} />;
-}
+};
 
 export default Page;

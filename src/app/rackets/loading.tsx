@@ -1,7 +1,7 @@
 import { FC } from "react";
 
 const Loading: FC = async () => {
-    return "loading rackets...";
-}
+  return "loading rackets...";
+};
 
 export default Loading;
