@@ -7,7 +7,7 @@ const Page: FC<PageProps<"/top10">> = async () => {
   return (
     <Home>
       <Suspense fallback="loading top 10 rackets...">
-        <RacketsHomeList getData={() => getTop10()} />
+        <RacketsHomeList getData={getTop10} />
       </Suspense>
     </Home>
   );
