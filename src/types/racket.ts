@@ -3,6 +3,13 @@ export interface Brand {
   name: string;
 }
 
+export interface UserProduct {
+  id: string;
+  userId: number;
+  productId: number;
+  isFavorite: boolean;
+}
+
 export interface Racket {
   id: number;
   name: string;
@@ -15,6 +22,7 @@ export interface Racket {
   description: string;
   brandId: number;
   brand: Brand;
+  userData: UserProduct[];
 }
 
 export interface RacketResponse {

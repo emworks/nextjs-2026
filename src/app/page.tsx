@@ -10,10 +10,10 @@ const Page: FC<PageProps<"/">> = async () => {
         <RacketsHomeList getData={() => getAll({ limit: "10" })} />
       </Suspense>
       <Suspense fallback="loading top 10 rackets...">
-        <RacketsHomeList getData={() => getTop10()} />
+        <RacketsHomeList getData={getTop10} />
       </Suspense>
     </Home>
   );
-}
+};
 
 export default Page;

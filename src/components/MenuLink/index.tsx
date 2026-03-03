@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import Link, { LinkProps } from "next/link";
 import { usePathname } from "next/navigation";
@@ -10,9 +10,13 @@ const MenuLink: FC<PropsWithChildren<LinkProps>> = ({ href, children }) => {
 
   const getActiveClass = () => {
     return href === pathname ? styles.active : "";
-  }
+  };
 
-  return <Link className={getActiveClass()} href={href} prefetch={false}>{children}</Link>
-}
+  return (
+    <Link className={getActiveClass()} href={href} prefetch={false}>
+      {children}
+    </Link>
+  );
+};
 
 export default MenuLink;
