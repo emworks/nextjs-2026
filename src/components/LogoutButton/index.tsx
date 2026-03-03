@@ -1,6 +1,6 @@
 "use client";
 
-import { UserContext } from "@/providers/UserProvider";
+import { UserContext } from "@/providers/user";
 import { logout } from "@/services/user";
 import { use, useTransition } from "react";
 

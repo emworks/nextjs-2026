@@ -1,7 +1,7 @@
 import { FC } from "react";
 import styles from "./styles.module.css";
 import { Racket } from "@/types/racket";
-import FavoriteButton from "@/components/Rackets/FavoriteButton";
+import FavoriteSection from "./FavoriteSection";
 
 type Props = {
   racket: Racket;
@@ -14,7 +14,10 @@ const RacketDetails: FC<Props> = async ({ racket }) => {
         <div className={styles.left}>
           <h1>{racket.name}</h1>
           <p>{racket.description}</p>
-          <FavoriteButton userData={racket.userData} />
+          <FavoriteSection
+            racketId={racket.id}
+            isFavorite={racket.userData?.isFavorite}
+          />
         </div>
 
         <div className={styles.center}>

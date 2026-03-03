@@ -1,5 +1,6 @@
 import { BASE_API_URL } from "@/constants/api";
 import { Racket, RacketResponse } from "@/types/racket";
+import { cookies } from "next/headers";
 
 interface Params {
   page?: string;
@@ -33,7 +34,13 @@ export async function getTop10(): Promise<Racket[]> {
 }
 
 export async function getById(id: string): Promise<Partial<RacketResponse>> {
-  const res = await fetch(`${BASE_API_URL}/product/${id}`);
+  const cookieStore = await cookies();
+
+  const res = await fetch(`${BASE_API_URL}/product/${id}`, {
+    headers: {
+      Cookie: cookieStore.toString(),
+    },
+  });
 
   if (res.status === 404) {
     return {

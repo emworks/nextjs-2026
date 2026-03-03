@@ -22,7 +22,9 @@ export interface Racket {
   description: string;
   brandId: number;
   brand: Brand;
-  userData: UserProduct[];
+  userData?: {
+    isFavorite: boolean;
+  };
 }
 
 export interface RacketResponse {
