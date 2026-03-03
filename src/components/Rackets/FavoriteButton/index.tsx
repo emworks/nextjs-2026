@@ -1,28 +1,44 @@
 "use client";
 
-import { FC, useState, useEffect } from "react";
-import { Racket } from "@/types/racket";
-import { useUser } from "@/providers/UserProvider";
+import { FC, useCallback } from "react";
+import { useUser } from "@/providers/user";
+import { useSetIsFavorite } from "@/providers/favorite/hooks";
+import { BASE_API_URL } from "@/constants/api";
 
-interface Props {
-  userData: Racket["userData"];
-}
+type Props = {
+  racketId: number;
+  isFavorite: boolean;
+};
 
-const FavoriteButton: FC<Props> = ({ userData }) => {
+const handleFavorite = async ({ isFavorite, racketId }: Props) => {
+  const url = `${BASE_API_URL}/product/${racketId}/favorite`;
+
+  return fetch(url, {
+    credentials: "include",
+    method: isFavorite ? "DELETE" : "POST",
+  });
+};
+
+const FavoriteButton: FC<Props> = ({ racketId, isFavorite }) => {
   const user = useUser();
-  const [isFavorite, setIsFavorite] = useState(false);
 
-  useEffect(() => {
-    if (user && userData) {
-      const userProduct = userData.find((up) => up.userId === user.id);
-      setIsFavorite(userProduct?.isFavorite || false);
-    }
-  }, [user, userData]);
+  const setIsFavorite = useSetIsFavorite();
+
+  const handleClick = useCallback(
+    async ({ racketId, isFavorite }: Props) => {
+      setIsFavorite?.({ isFavorite: !isFavorite, id: racketId });
+      await handleFavorite({ racketId, isFavorite });
+    },
+    [setIsFavorite],
+  );
 
   if (!user) return null;
 
   return (
-    <button disabled className={isFavorite ? "favorite active" : "favorite"}>
+    <button
+      onClick={() => handleClick({ racketId, isFavorite })}
+      className={isFavorite ? "favorite active" : "favorite"}
+    >
       {isFavorite ? "❤️ В избранном" : "♡ В избранное"}
     </button>
   );

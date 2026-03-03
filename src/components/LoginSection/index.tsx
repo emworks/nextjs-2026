@@ -1,6 +1,6 @@
 "use client";
 
-import { UserContext } from "@/providers/UserProvider";
+import { UserContext } from "@/providers/user";
 import { use } from "react";
 import { LogoutButton } from "@/components/LogoutButton";
 import MenuLink from "@/components/MenuLink";
